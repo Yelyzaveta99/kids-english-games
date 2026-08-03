@@ -4,47 +4,53 @@ Interactive educational games for preschool kids learning English (colors, cloth
 
 Each game is a **self-contained HTML file** that works on phones, tablets and computers. No installation needed.
 
-## 🚀 How to get permanent free links (GitHub Pages)
+## 🚀 Permanent free links via GitHub Pages
 
-1. Go to the repository: https://github.com/Yelyzaveta99/kids-english-games
-2. Click **Settings** → **Pages** (left menu)
-3. Under "Build and deployment" → Source: select **Deploy from a branch**
-4. Branch: **main** / folder: **/ (root)**
-5. Click Save
-6. Wait 1-2 minutes. Your site will be at:
-   **https://yelyzaveta99.github.io/kids-english-games/**
+1. Open the repository: **https://github.com/Yelyzaveta99/kids-english-games**
+2. Go to **Settings → Pages** (in the left sidebar)
+3. Under **Build and deployment** → **Source**: choose **Deploy from a branch**
+4. Branch: **main** , folder: **/ (root)**
+5. Click **Save**
+6. Wait 1–2 minutes. Your games site will appear at:
 
-Then every `.html` file gets a permanent link like:
-`https://yelyzaveta99.github.io/kids-english-games/dress-up-colors-clothes.html`
+**https://yelyzaveta99.github.io/kids-english-games/**
 
-## 🎮 Games
+Every HTML game then has a permanent link of the form:
+`https://yelyzaveta99.github.io/kids-english-games/GAME-NAME.html`
+
+## 🎮 Current Games
 
 ### 1. Dress Up English Colors & Clothes
-**Drag-and-drop dress-up game** for girl then boy.
-- 5 t-shirts of different colors
+**Fully interactive drag-and-drop dress-up game** (girl → boy).
+
+- 5 different t-shirts (red, blue, green, yellow, purple)
 - 3 shorts
-- 5 dresses (girl only)
+- 5 dresses (only for the girl)
 - 4 sandals
-- 3 glasses (black, brown, white)
-- 3 hats (straw, cap, beach)
-- English speech (colors + clothes names)
-- Fully responsive + touch support
+- 3 glasses: black, brown, white
+- 3 hats: straw hat, red cap, blue beach hat
+- English speech synthesis (color + clothing name)
+- Works perfectly on phones, tablets and computers (touch + mouse)
+- Cute cartoon CSS characters
 
-**Play now (temporary direct link):** https://litter.catbox.moe/iwkbg8.html
+**Permanent link (after enabling Pages above):**  
+👉 **https://yelyzaveta99.github.io/kids-english-games/dress-up-colors-clothes.html**
 
-**After enabling Pages (recommended permanent):**
-https://yelyzaveta99.github.io/kids-english-games/dress-up-colors-clothes.html
+**Direct file in the repo:**  
+[dress-up-colors-clothes.html](https://github.com/Yelyzaveta99/kids-english-games/blob/main/dress-up-colors-clothes.html)
 
-**Source file in repo:** [dress-up-colors-clothes.html](dress-up-colors-clothes.html)
+**Raw (works even before Pages):**  
+https://raw.githubusercontent.com/Yelyzaveta99/kids-english-games/main/dress-up-colors-clothes.html  
+(right-click → Save As… then open the file locally)
 
 ---
 
-## Adding new games
-Just ask me (Grok) and I will:
-1. Create the new interactive HTML game
-2. Upload it to this repository as a new file
-3. Update this README with the new permanent link
+## Adding new games in the future
+Just tell me (Grok) what game you want next, and I will:
+1. Create a new complete interactive HTML game
+2. Upload the new file into this repository
+3. Update this README with the new permanent GitHub Pages link
 
-All games stay free, open-source and forever accessible via GitHub Pages.
+All games remain free, open-source and permanently available.
 
 Made with ❤️ for preschool English learning.
