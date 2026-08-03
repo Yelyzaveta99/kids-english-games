@@ -47,25 +47,92 @@ h1 {
   height: 55vh;
   min-height: 320px;
   margin: 0 auto 12px;
-  background: #e0f7fa;
+  background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 70%, #90EE90 100%);
   border-radius: 24px;
   box-shadow: 0 12px 40px rgba(0,0,0,0.25);
   overflow: hidden;
   border: 4px solid white;
-  background-size: cover;
-  background-position: center;
 }
 #char {
   position: absolute;
   left: 50%;
   bottom: 8%;
   transform: translateX(-50%);
-  width: 58%;
-  max-width: 200px;
+  width: 140px;
+  height: 220px;
   z-index: 5;
   pointer-events: none;
 }
-#char img { width: 100%; height: auto; display: block; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); }
+/* Cute CSS cartoon girl/boy */
+.avatar {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.head {
+  width: 70px;
+  height: 70px;
+  background: #FFDBAC;
+  border-radius: 50%;
+  position: absolute;
+  left: 35px;
+  top: 10px;
+  border: 3px solid #e0a878;
+  z-index: 6;
+}
+.eye {
+  width: 12px;
+  height: 12px;
+  background: #333;
+  border-radius: 50%;
+  position: absolute;
+  top: 25px;
+}
+.eye.l { left: 15px; }
+.eye.r { right: 15px; }
+.smile {
+  width: 20px;
+  height: 10px;
+  border-bottom: 3px solid #e74c3c;
+  border-radius: 0 0 20px 20px;
+  position: absolute;
+  bottom: 15px;
+  left: 25px;
+}
+.body {
+  width: 60px;
+  height: 70px;
+  background: #fff;
+  position: absolute;
+  left: 40px;
+  top: 75px;
+  border-radius: 10px 10px 5px 5px;
+  border: 2px solid #ddd;
+  z-index: 4;
+}
+.legs {
+  width: 50px;
+  height: 50px;
+  background: #3498db;
+  position: absolute;
+  left: 45px;
+  top: 140px;
+  border-radius: 5px;
+  z-index: 3;
+}
+.hair {
+  width: 80px;
+  height: 30px;
+  background: #8B4513;
+  border-radius: 40px 40px 0 0;
+  position: absolute;
+  left: 30px;
+  top: 5px;
+  z-index: 7;
+}
+.boy .hair { background: #2c3e50; height: 20px; border-radius: 10px; }
+.boy .body { background: #ecf0f1; }
+.boy .legs { background: #2980b9; }
 .layer {
   position: absolute;
   left: 50%;
@@ -79,13 +146,16 @@ h1 {
   text-shadow: 1px 1px 2px black;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  font-size: 10px;
+  text-align: center;
+  padding: 2px;
 }
-.layer.top { top: 27%; width: 46%; height: 18%; font-size: 11px; z-index: 15; }
-.layer.bottom { top: 48%; width: 38%; height: 14%; font-size: 11px; z-index: 12; }
-.layer.dress { top: 28%; width: 50%; height: 35%; font-size: 12px; z-index: 14; border-radius: 12px 12px 40% 40%; }
-.layer.shoes { bottom: 4%; width: 32%; height: 10%; font-size: 10px; z-index: 11; }
-.layer.glasses { top: 16%; width: 26%; height: 8%; font-size: 9px; z-index: 25; border-radius: 20px; }
-.layer.hat { top: 1%; width: 42%; height: 14%; font-size: 11px; z-index: 20; border-radius: 50% 50% 10% 10%; }
+.layer.top { top: 32%; width: 70px; height: 55px; z-index: 15; border-radius: 8px; }
+.layer.bottom { top: 55%; width: 55px; height: 40px; z-index: 12; }
+.layer.dress { top: 33%; width: 80px; height: 90px; z-index: 14; border-radius: 10px 10px 40% 40%; }
+.layer.shoes { bottom: 5%; width: 60px; height: 25px; z-index: 11; border-radius: 5px; }
+.layer.glasses { top: 18%; width: 55px; height: 18px; z-index: 25; border-radius: 10px; }
+.layer.hat { top: 2%; width: 80px; height: 30px; z-index: 20; border-radius: 40px 40px 5px 5px; }
 #panel {
   display: flex;
   flex-wrap: wrap;
@@ -155,6 +225,7 @@ button:active { transform: scale(0.96); }
 @media (max-width: 400px) {
   .item { width: 56px; height: 56px; font-size: 9px; }
   #stage { min-height: 280px; }
+  #char { width: 120px; height: 190px; }
 }
 </style>
 </head>
@@ -163,7 +234,18 @@ button:active { transform: scale(0.96); }
 <div id="info">Перетащите одежду на девочку. Учите цвета и названия на английском! Затем кнопка NEXT для мальчика.</div>
 <div id="label">Hello! Dress me up!</div>
 <div id="stage">
-  <div id="char"><img id="charImg" alt="character"></div>
+  <div id="char">
+    <div class="avatar" id="avatar">
+      <div class="hair"></div>
+      <div class="head">
+        <div class="eye l"></div>
+        <div class="eye r"></div>
+        <div class="smile"></div>
+      </div>
+      <div class="body"></div>
+      <div class="legs"></div>
+    </div>
+  </div>
 </div>
 <div id="btns">
   <button id="reset">🔄 Reset</button>
@@ -172,3 +254,208 @@ button:active { transform: scale(0.96); }
 </div>
 <div id="panel"></div>
 <script>
+let isGirl = true;
+const layers = {};
+const colors = {
+  red: '#e74c3c', blue: '#3498db', green: '#2ecc71', yellow: '#f1c40f',
+  purple: '#9b59b6', pink: '#ff69b4', black: '#2c3e50', brown: '#8B4513',
+  white: '#ecf0f1', orange: '#e67e22', gray: '#7f8c8d'
+};
+
+const girlItems = [
+  {id:'t1', name:'red t-shirt', color:'red', type:'top', label:'RED T-SHIRT'},
+  {id:'t2', name:'blue striped t-shirt', color:'blue', type:'top', label:'BLUE T-SHIRT'},
+  {id:'t3', name:'green polka t-shirt', color:'green', type:'top', label:'GREEN T-SHIRT'},
+  {id:'t4', name:'yellow sun t-shirt', color:'yellow', type:'top', label:'YELLOW T-SHIRT'},
+  {id:'t5', name:'purple heart t-shirt', color:'purple', type:'top', label:'PURPLE T-SHIRT'},
+  {id:'s1', name:'pink shorts', color:'pink', type:'bottom', label:'PINK SHORTS'},
+  {id:'s2', name:'blue shorts', color:'blue', type:'bottom', label:'BLUE SHORTS'},
+  {id:'s3', name:'green shorts', color:'green', type:'bottom', label:'GREEN SHORTS'},
+  {id:'d1', name:'red dress', color:'red', type:'dress', label:'RED DRESS'},
+  {id:'d2', name:'blue dress', color:'blue', type:'dress', label:'BLUE DRESS'},
+  {id:'d3', name:'yellow dress', color:'yellow', type:'dress', label:'YELLOW DRESS'},
+  {id:'d4', name:'pink dress', color:'pink', type:'dress', label:'PINK DRESS'},
+  {id:'d5', name:'green dress', color:'green', type:'dress', label:'GREEN DRESS'},
+  {id:'sa1', name:'red sandals', color:'red', type:'shoes', label:'RED SANDALS'},
+  {id:'sa2', name:'blue sandals', color:'blue', type:'shoes', label:'BLUE SANDALS'},
+  {id:'sa3', name:'yellow sandals', color:'yellow', type:'shoes', label:'YELLOW SANDALS'},
+  {id:'sa4', name:'pink sandals', color:'pink', type:'shoes', label:'PINK SANDALS'},
+  {id:'g1', name:'black glasses', color:'black', type:'glasses', label:'BLACK GLASSES'},
+  {id:'g2', name:'brown glasses', color:'brown', type:'glasses', label:'BROWN GLASSES'},
+  {id:'g3', name:'white glasses', color:'white', type:'glasses', label:'WHITE GLASSES'},
+  {id:'h1', name:'straw hat', color:'yellow', type:'hat', label:'STRAW HAT'},
+  {id:'h2', name:'red cap', color:'red', type:'hat', label:'RED CAP'},
+  {id:'h3', name:'blue beach hat', color:'blue', type:'hat', label:'BEACH HAT'},
+];
+
+const boyItems = [
+  {id:'t1', name:'red t-shirt', color:'red', type:'top', label:'RED T-SHIRT'},
+  {id:'t2', name:'blue striped t-shirt', color:'blue', type:'top', label:'BLUE T-SHIRT'},
+  {id:'t3', name:'green polka t-shirt', color:'green', type:'top', label:'GREEN T-SHIRT'},
+  {id:'t4', name:'yellow sun t-shirt', color:'yellow', type:'top', label:'YELLOW T-SHIRT'},
+  {id:'t5', name:'purple heart t-shirt', color:'purple', type:'top', label:'PURPLE T-SHIRT'},
+  {id:'bs1', name:'blue shorts', color:'blue', type:'bottom', label:'BLUE SHORTS'},
+  {id:'bs2', name:'green shorts', color:'green', type:'bottom', label:'GREEN SHORTS'},
+  {id:'bs3', name:'orange shorts', color:'orange', type:'bottom', label:'ORANGE SHORTS'},
+  {id:'bsa1', name:'black sandals', color:'black', type:'shoes', label:'BLACK SANDALS'},
+  {id:'bsa2', name:'brown sandals', color:'brown', type:'shoes', label:'BROWN SANDALS'},
+  {id:'bsa3', name:'gray sandals', color:'gray', type:'shoes', label:'GRAY SANDALS'},
+  {id:'bsa4', name:'blue sandals', color:'blue', type:'shoes', label:'BLUE SANDALS'},
+  {id:'g1', name:'black glasses', color:'black', type:'glasses', label:'BLACK GLASSES'},
+  {id:'g2', name:'brown glasses', color:'brown', type:'glasses', label:'BROWN GLASSES'},
+  {id:'g3', name:'white glasses', color:'white', type:'glasses', label:'WHITE GLASSES'},
+  {id:'h1', name:'straw hat', color:'yellow', type:'hat', label:'STRAW HAT'},
+  {id:'h2', name:'red cap', color:'red', type:'hat', label:'RED CAP'},
+  {id:'h3', name:'blue beach hat', color:'blue', type:'hat', label:'BEACH HAT'},
+];
+
+function speak(txt) {
+  document.getElementById('label').textContent = txt;
+  if (window.speechSynthesis) {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(txt);
+    u.lang = 'en-US';
+    u.rate = 0.8;
+    u.pitch = 1.15;
+    speechSynthesis.speak(u);
+  }
+}
+
+function clearLayers() {
+  Object.keys(layers).forEach(k => { if (layers[k]) layers[k].remove(); });
+  for (let k in layers) layers[k] = null;
+}
+
+function applyClothing(item) {
+  const type = item.type;
+  if (type === 'dress') {
+    if (layers.top) { layers.top.remove(); layers.top = null; }
+    if (layers.bottom) { layers.bottom.remove(); layers.bottom = null; }
+  }
+  if (type === 'top' || type === 'bottom') {
+    if (layers.dress) { layers.dress.remove(); layers.dress = null; }
+  }
+  if (layers[type]) layers[type].remove();
+
+  const el = document.createElement('div');
+  el.className = 'layer ' + type;
+  el.style.background = colors[item.color] || '#888';
+  if (item.color === 'white') el.style.color = '#333';
+  el.textContent = item.label;
+  document.getElementById('stage').appendChild(el);
+  layers[type] = el;
+  speak(item.name);
+}
+
+function renderPanel() {
+  const panel = document.getElementById('panel');
+  panel.innerHTML = '';
+  const items = isGirl ? girlItems : boyItems;
+  const groups = [
+    {title: '👕 5 T-SHIRTS', filter: i => i.type==='top'},
+    {title: '🩳 3 SHORTS', filter: i => i.type==='bottom'},
+  ];
+  if (isGirl) groups.push({title: '👗 5 DRESSES', filter: i => i.type==='dress'});
+  groups.push(
+    {title: '👡 4 SANDALS', filter: i => i.type==='shoes'},
+    {title: '👓 3 GLASSES (black, brown, white)', filter: i => i.type==='glasses'},
+    {title: '👒 3 HATS (straw, cap, beach)', filter: i => i.type==='hat'}
+  );
+  groups.forEach(g => {
+    const cat = document.createElement('div');
+    cat.className = 'cat';
+    cat.textContent = g.title;
+    panel.appendChild(cat);
+    items.filter(g.filter).forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'item';
+      div.style.background = colors[item.color] || '#888';
+      if (item.color === 'white') { div.style.color = '#333'; div.style.borderColor = '#ccc'; }
+      div.innerHTML = item.label.split(' ')[0] + '<span>' + item.color + '</span>';
+      div.dataset.id = item.id;
+      div.draggable = true;
+      div.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', JSON.stringify(item));
+        div.classList.add('drag');
+      });
+      div.addEventListener('dragend', () => div.classList.remove('drag'));
+      div.addEventListener('touchstart', e => {
+        e.preventDefault();
+        div.classList.add('drag');
+        const t = e.touches[0];
+        const clone = div.cloneNode(true);
+        clone.id = 'tc';
+        clone.style.position = 'fixed';
+        clone.style.left = t.clientX - 34 + 'px';
+        clone.style.top = t.clientY - 34 + 'px';
+        clone.style.zIndex = 999;
+        clone.style.opacity = '0.9';
+        clone.style.pointerEvents = 'none';
+        document.body.appendChild(clone);
+        const move = ev => {
+          const tt = ev.touches[0];
+          clone.style.left = tt.clientX - 34 + 'px';
+          clone.style.top = tt.clientY - 34 + 'px';
+        };
+        const end = ev => {
+          document.removeEventListener('touchmove', move);
+          document.removeEventListener('touchend', end);
+          clone.remove();
+          div.classList.remove('drag');
+          const tt = ev.changedTouches[0];
+          const st = document.getElementById('stage').getBoundingClientRect();
+          if (tt.clientX > st.left && tt.clientX < st.right && tt.clientY > st.top && tt.clientY < st.bottom) {
+            applyClothing(item);
+          }
+        };
+        document.addEventListener('touchmove', move, {passive:false});
+        document.addEventListener('touchend', end);
+      }, {passive:false});
+      panel.appendChild(div);
+    });
+  });
+}
+
+document.getElementById('stage').addEventListener('dragover', e => e.preventDefault());
+document.getElementById('stage').addEventListener('drop', e => {
+  e.preventDefault();
+  try {
+    const item = JSON.parse(e.dataTransfer.getData('text/plain'));
+    applyClothing(item);
+  } catch(err) {}
+});
+
+document.getElementById('reset').onclick = () => {
+  clearLayers();
+  speak('Reset! Dress me again!');
+};
+document.getElementById('speak').onclick = () => {
+  const worn = [];
+  for (let k in layers) if (layers[k]) worn.push(layers[k].textContent);
+  if (worn.length) speak('I am wearing ' + worn.join(', '));
+  else speak('Please dress me with clothes!');
+};
+document.getElementById('next').onclick = () => {
+  isGirl = !isGirl;
+  clearLayers();
+  const av = document.getElementById('avatar');
+  if (isGirl) {
+    av.classList.remove('boy');
+  } else {
+    av.classList.add('boy');
+  }
+  document.getElementById('next').textContent = isGirl ? 'Next ➡️ Boy' : 'Next ➡️ Girl';
+  document.getElementById('info').textContent = isGirl ?
+    'Перетащите одежду на девочку. Учите цвета и названия на английском! Затем кнопка NEXT для мальчика.' :
+    'Теперь мальчик! Без платьев. Перетаскивайте одежду и учите английский!';
+  renderPanel();
+  speak(isGirl ? 'Hello! I am a girl. Dress me!' : 'Hello! I am a boy. Dress me!');
+};
+
+window.addEventListener('load', () => {
+  renderPanel();
+  speak('Hello little friend! Drag clothes on me to learn English!');
+});
+</script>
+</body>
+</html>
