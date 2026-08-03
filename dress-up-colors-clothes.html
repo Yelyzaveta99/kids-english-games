@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Dress Up English Game for Kids - Colors & Clothes</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(160deg, #ff9a9e, #fecfef, #a1c4fd, #c2e9fb);
+  min-height: 100vh;
+  overflow-x: hidden;
+  touch-action: manipulation;
+}
+h1 {
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px 0 #ff1493, 4px 4px 8px rgba(0,0,0,0.2);
+  padding: 12px 8px;
+  font-size: clamp(1.1rem, 5vw, 1.7rem);
+  background: linear-gradient(90deg, #ff69b4, #ff8c00);
+  margin-bottom: 8px;
+}
+#info {
+  text-align: center;
+  background: rgba(255,255,255,0.85);
+  padding: 8px 12px;
+  margin: 0 10px 8px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+#label {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #ff1493;
+  min-height: 1.6em;
+  margin: 4px;
+  text-shadow: 1px 1px 0 white;
+}
+#stage {
+  position: relative;
+  width: min(95vw, 420px);
+  height: 55vh;
+  min-height: 320px;
+  margin: 0 auto 12px;
+  background: #e0f7fa;
+  border-radius: 24px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  overflow: hidden;
+  border: 4px solid white;
+  background-size: cover;
+  background-position: center;
+}
+#char {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  transform: translateX(-50%);
+  width: 58%;
+  max-width: 200px;
+  z-index: 5;
+  pointer-events: none;
+}
+#char img { width: 100%; height: auto; display: block; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); }
+.layer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.layer.top { top: 27%; width: 46%; height: 18%; font-size: 11px; z-index: 15; }
+.layer.bottom { top: 48%; width: 38%; height: 14%; font-size: 11px; z-index: 12; }
+.layer.dress { top: 28%; width: 50%; height: 35%; font-size: 12px; z-index: 14; border-radius: 12px 12px 40% 40%; }
+.layer.shoes { bottom: 4%; width: 32%; height: 10%; font-size: 10px; z-index: 11; }
+.layer.glasses { top: 16%; width: 26%; height: 8%; font-size: 9px; z-index: 25; border-radius: 20px; }
+.layer.hat { top: 1%; width: 42%; height: 14%; font-size: 11px; z-index: 20; border-radius: 50% 50% 10% 10%; }
+#panel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  max-width: 520px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.92);
+  border-radius: 16px;
+  max-height: 32vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+.cat {
+  width: 100%;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #c71585;
+  font-weight: bold;
+  margin: 6px 0 2px;
+}
+.item {
+  width: 68px;
+  height: 68px;
+  border-radius: 12px;
+  border: 3px solid #fff;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  cursor: grab;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  touch-action: none;
+  position: relative;
+  transition: transform 0.12s;
+}
+.item:active, .item.drag { transform: scale(1.15); cursor: grabbing; z-index: 50; box-shadow: 0 8px 20px rgba(0,0,0,0.35); }
+.item span { font-size: 9px; margin-top: 2px; background: rgba(0,0,0,0.25); padding: 1px 4px; border-radius: 4px; }
+#btns {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+button {
+  padding: 12px 22px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  font-family: inherit;
+  color: white;
+  transition: transform 0.1s;
+}
+button:active { transform: scale(0.96); }
+#reset { background: linear-gradient(45deg, #20bf6b, #0fb9b1); }
+#speak { background: linear-gradient(45deg, #a55eea, #45aaf2); }
+#next { background: linear-gradient(45deg, #fc5c65, #fd9644); }
+@media (max-width: 400px) {
+  .item { width: 56px; height: 56px; font-size: 9px; }
+  #stage { min-height: 280px; }
+}
+</style>
+</head>
+<body>
+<h1>🌈 Dress Up! English Colors & Clothes 👧👦</h1>
+<div id="info">Перетащите одежду на девочку. Учите цвета и названия на английском! Затем кнопка NEXT для мальчика.</div>
+<div id="label">Hello! Dress me up!</div>
+<div id="stage">
+  <div id="char"><img id="charImg" alt="character"></div>
+</div>
+<div id="btns">
+  <button id="reset">🔄 Reset</button>
+  <button id="speak">🔊 Hear English</button>
+  <button id="next">Next ➡️ Boy</button>
+</div>
+<div id="panel"></div>
+<script>
